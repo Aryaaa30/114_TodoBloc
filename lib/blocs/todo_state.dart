@@ -9,7 +9,7 @@ final class TodoLoading extends TodoState {}
 
 final class TodoLoaded extends TodoState {
   DateTime? selectedDate;
-  final List<String> todos; // Menambahkan list todo
+  final List<Todo> todos; // Mengganti List<String> dengan List<Todo>
 
   TodoLoaded({this.selectedDate, this.todos = const []});
 }

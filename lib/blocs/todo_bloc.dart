@@ -1,19 +1,34 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:session6_bloc_consept_todo/models/todo.dart';
 
 part 'todo_event.dart';
 part 'todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
+  // Menyimpan daftar todos
+  List<Todo> _todos = [];
+
   TodoBloc() : super(TodoInitial()) {
+    // Event untuk memilih tanggal
     on<TodoSelectDate>((event, emit) {
-      emit(TodoLoaded(selectedDate: event.date));
+      emit(TodoLoaded(todos: _todos, selectedDate: event.date));
     });
 
+    // Event untuk menambahkan todo
     on<TodoEventAdd>((event, emit) {
-      // Untuk contoh awal, kita hanya print datanya.
-      print('Todo Ditambahkan: ${event.title} pada ${event.date}');
-      // Kamu bisa menyimpan todo list dalam list dan emit state baru jika dibutuhkan
+      // Membuat todo baru
+      final newTodo = Todo(title: event.title, date: event.date);
+      _todos.add(newTodo); // Menambahkan todo ke dalam list
+
+      // Emit state baru dengan todos yang diperbarui
+      emit(
+        TodoLoaded(
+          todos: _todos,
+          selectedDate:
+              state is TodoLoaded ? (state as TodoLoaded).selectedDate : null,
+        ),
+      );
     });
   }
 }

@@ -108,7 +108,7 @@ class TodoPage extends StatelessWidget {
                       }
                       return ListView.builder(
                         itemCount: state.todos.length,
-                        itemBuilder: (context, index){
+                        itemBuilder: (context, index) {
                           final todo = state.todos[index];
                           return Container(
                             margin: EdgeInsets.only(bottom: 8.0),
@@ -116,15 +116,54 @@ class TodoPage extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.blue[50],
                               borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children:[
-                                
-                              ]
-                          )
-                        }
-                      )
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      todo.title,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4.0),
+                                    Text(
+                                      '${todo.date.day}/${todo.date.month}/${todo.date.year}',
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    SizedBox(height: 4.0),
+                                    Text(
+                                      todo.isCompleted
+                                          ? 'Completed'
+                                          : 'Not Completed',
+                                      style: TextStyle(
+                                        color:
+                                            todo.isCompleted
+                                                ? Colors.green
+                                                : Colors.red,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Checkbox(
+                                  value: todo.isCompleted,
+                                  onChanged: (value) {
+                                    context.read<TodoBloc>().add(
+                                      TodoEventComplete(index: index),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return Center(child: Text('No todos available'));
                     }
                   },
                 ),
