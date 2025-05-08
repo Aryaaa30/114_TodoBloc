@@ -3,8 +3,8 @@ part of 'todo_bloc.dart';
 @immutable
 sealed class TodoEvent {}
 
-final class SelectDateEvent extends TodoEvent {
-  final DateTime selectedDate;
+final class TodoSelectDate extends TodoEvent {
+  final DateTime date;
 
-  SelectDateEvent({required this.selectedDate});
+  TodoSelectDate({required this.date});
 }
