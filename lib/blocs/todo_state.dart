@@ -5,8 +5,11 @@ sealed class TodoState {}
 
 final class TodoInitial extends TodoState {}
 
+final class TodoLoading extends TodoState {}
+
 final class TodoLoaded extends TodoState {
   DateTime? selectedDate;
+  final List<String> todos; // Menambahkan list todo
 
-  TodoLoaded({this.selectedDate});
+  TodoLoaded({this.selectedDate, this.todos = const []});
 }
