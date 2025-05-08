@@ -30,5 +30,23 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         ),
       );
     });
+
+    // Event untuk menandai todo sebagai selesai atau belum selesai
+    on<TodoEventComplete>((event, emit) {
+      // Menangani perubahan status completed
+      if (_todos.isNotEmpty && event.index < _todos.length) {
+        final todo = _todos[event.index];
+        todo.isCompleted = !todo.isCompleted; // Toggle status isCompleted
+
+        // Emit state baru dengan todos yang diperbarui
+        emit(
+          TodoLoaded(
+            todos: _todos,
+            selectedDate:
+                state is TodoLoaded ? (state as TodoLoaded).selectedDate : null,
+          ),
+        );
+      }
+    });
   }
 }

@@ -23,3 +23,9 @@ final class TodoEventAdd extends TodoEvent {
   // Konstruktor tambahan untuk inisialisasi lebih mudah
   TodoEventAdd.addTodo({required this.title, required this.date});
 }
+
+final class TodoEventComplete extends TodoEvent {
+  final int index;
+
+  TodoEventComplete({required this.index});
+}
