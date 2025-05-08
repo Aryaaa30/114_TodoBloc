@@ -9,5 +9,11 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<TodoSelectDate>((event, emit) {
       emit(TodoLoaded(selectedDate: event.date));
     });
+
+    on<TodoEventAdd>((event, emit) {
+      // Untuk contoh awal, kita hanya print datanya.
+      print('Todo Ditambahkan: ${event.title} pada ${event.date}');
+      // Kamu bisa menyimpan todo list dalam list dan emit state baru jika dibutuhkan
+    });
   }
 }

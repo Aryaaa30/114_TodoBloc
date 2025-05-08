@@ -6,7 +6,7 @@ sealed class TodoState {}
 final class TodoInitial extends TodoState {}
 
 final class TodoLoaded extends TodoState {
-  final DateTime? selectedDate;
+  DateTime? selectedDate;
 
   TodoLoaded({this.selectedDate});
 }
